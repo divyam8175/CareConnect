@@ -1,0 +1,337 @@
+/* Base resets and fonts */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Overall dashboard styling */
+  .dashboard {
+    background-color: #f9fafb; /* Gray 50 */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dashboard-container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* Header */
+  .dashboard-header {
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+  }
+  
+  .dashboard-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f2937; /* Gray 900 */
+    margin: 0;
+  }
+  
+  /* Navigation links */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4b5563; /* Gray 600 */
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  
+  .nav-link:hover {
+    background-color: #f3f4f6; /* Gray 50 */
+  }
+  
+  .nav-icon {
+    margin-right: 8px;
+    font-size: 16px;
+  }
+  
+  /* Notification and user info */
+  .notification-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .notification-button {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #4b5563;
+  }
+  
+  .notification-button:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .notification-dot {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 8px;
+    height: 8px;
+    background-color: #ef4444; /* Red 500 */
+    border-radius: 50%;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .user-avatar {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
+  
+  .user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151; /* Gray 700 */
+  }
+  
+  /* Main content */
+  .dashboard-main {
+    padding: 32px 0;
+  }
+  
+  /* Cards grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  
+  .dashboard-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: 24px;
+  }
+  
+  .card-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .card-icon-container {
+    padding: 12px;
+    background-color: rgba(0,123,255,0.1); /* Custom color with opacity */
+    border-radius: 50%;
+  }
+  
+  .card-icon {
+    font-size: 20px;
+    color: #007bff;
+  }
+  
+  .card-text {
+    margin-left: 16px;
+  }
+  
+  .card-label {
+    font-size: 14px;
+    color: #6b7280; /* Gray 500 */
+    margin: 0;
+  }
+  
+  .card-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1f2937; /* Gray 900 */
+    margin: 4px 0 0;
+  }
+  
+  /* Search section */
+  .search-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .search-input-container {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 8px 12px 8px 40px;
+    border: 1px solid #d1d5db; /* Gray 300 */
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af; /* Gray 400 */
+    font-size: 16px;
+  }
+  
+  .filter-selects {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .filter-select {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #ffffff;
+  }
+  
+  /* Doctor grid */
+  .doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .doctor-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .doctor-card-content {
+    padding: 24px;
+  }
+  
+  .doctor-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .doctor-avatar {
+    height: 64px;
+    width: 64px;
+    border-radius: 50%;
+  }
+  
+  .doctor-details {
+    margin-left: 16px;
+  }
+  
+  .doctor-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+  }
+  
+  .doctor-specialty {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 4px 0;
+  }
+  
+  .doctor-rating {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+  }
+  
+  .rating-icon {
+    color: #fbbf24; /* Yellow 400 */
+    margin-right: 4px;
+    font-size: 14px;
+  }
+  
+  .rating-text {
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  /* Doctor actions */
+  .doctor-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  
+  .availability {
+    padding: 4px 8px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .available {
+    background-color: #d1fae5; /* Green 100 */
+    color: #065f46; /* Green 800 */
+  }
+  
+  .tomorrow {
+    background-color: #fef3c7; /* Yellow 100 */
+    color: #92400e; /* Yellow 800 */
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .message-button {
+    padding: 8px 16px;
+    border: 1px solid #007bff;
+    background: none;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #007bff;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  .message-button:hover {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  .book-button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .book-button:hover {
+    background-color: #0056b3;
+  }
+  

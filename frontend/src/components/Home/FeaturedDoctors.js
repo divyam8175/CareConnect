@@ -1,11 +1,12 @@
 import { Star, StarHalf } from "lucide-react";
-import "../styles/FeaturedDoctors.css";
 
 // Import local doctor images
-import doctor1 from "../assets/doctor1.jpeg";
-import doctor2 from "../assets/doctor2.jpeg";
-import doctor3 from "../assets/doctor3.jpeg";
-import doctor4 from "../assets/doctor4.jpeg";
+import '../../styles/FeaturedDoctors.css';
+import doctor1 from '../../assets/doctor1.jpeg';
+import doctor2 from '../../assets/doctor2.jpeg';
+import doctor3 from '../../assets/doctor3.jpeg';
+import doctor4 from '../../assets/doctor4.jpeg';
+
 
 function FeaturedDoctors() {
   const doctors = [

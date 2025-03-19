@@ -1,6 +1,6 @@
 import React from "react";
-import "../styles/HeroSection.css";
-import logo from "../assets/medical-team.png";
+import "../../styles/HeroSection.css";
+import logo from "../../assets/medical-team.png";
 const HeroSection = () => {
   return (
     <section className="hero">

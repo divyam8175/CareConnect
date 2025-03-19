@@ -24,9 +24,9 @@ const Login = () => {
       
       // Redirect based on role
       if (data.role === 'patient') {
-        navigate('/patient');
+        navigate('/dashboard');
       } else if (data.role === 'doctor') {
-        navigate('/doctor');
+        navigate('/dashboard');
       }
     } catch (error) {
       console.error('Error during login:', error.response ? error.response.data : error.message);

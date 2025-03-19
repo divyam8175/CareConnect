@@ -1,5 +1,5 @@
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-import "../styles/Footer.css";
+import "../../styles/Footer.css";
 
 function Footer() {
   const footerLinks = [

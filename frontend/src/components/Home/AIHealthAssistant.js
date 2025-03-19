@@ -1,6 +1,6 @@
 import { Bot } from "lucide-react";
-import "../styles/AiAssistant.css";
-import logo from "../assets/aiassisstance.png";
+import "../../styles/AiAssistant.css";
+import logo from "../../assets/aiassisstance.png";
 import { useNavigate } from "react-router-dom";
 
 function AiAssistant() {

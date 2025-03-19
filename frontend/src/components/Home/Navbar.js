@@ -1,6 +1,6 @@
 import React from "react";
-import "../styles/Navbar.css";
-import logo from "../assets/logo.png";
+import "../../styles/Navbar.css";
+import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {

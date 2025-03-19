@@ -1,13 +1,13 @@
 import React from "react";
-import "../styles/Services.css";
+import "../../styles/Services.css";
 
 // Import icons
-import ambulanceIcon from "../assets/ambulance.png";
-import appointmentIcon from "../assets/appointment.png";
-import doctorIcon from "../assets/doctor.png";
-import ehrIcon from "../assets/ehr.png";
-import healthReportIcon from "../assets/health-report.png";
-import medicineIcon from "../assets/medicine.png";
+import ambulanceIcon from "../../assets/ambulance.png";
+import appointmentIcon from "../../assets/appointment.png";
+import doctorIcon from "../../assets/doctor.png";
+import ehrIcon from "../../assets/ehr.png";
+import healthReportIcon from "../../assets/health-report.png";
+import medicineIcon from "../../assets/medicine.png";
 
 const services = [
     { icon: doctorIcon, title: "Connect with Doctors", description: "Book video consultations with experienced healthcare professionals." },

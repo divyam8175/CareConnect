@@ -1,26 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import Services from "./components/Services";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import AiAssistant from "./components/AIHealthAssistant";
-import Footer from "./components/Footer";
-import FeaturedDoctors from "./components/FeaturedDoctors";
+import Dashboard from "./components/PatientPages/Dashboard";
+import Home from "./components/Home/Home";
+
 const App = () => {
   return (
     <Router>
-      <Navbar />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-      <HeroSection />
-      <Services />
-      <AiAssistant />
-      <FeaturedDoctors />
-      <Footer />
     </Router>
   );
 };
