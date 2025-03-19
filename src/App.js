@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";  
+import Services from "./components/Services";  
+import Login from "./pages/Login";  
+import Signup from "./pages/Signup";  
+import AiAssistant from "./components/AIHealthAssistant";
+import Footer from "./components/Footer";
+import FeaturedDoctors from "./components/FeaturedDoctors"; 
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar /> 
+      <Routes>
+        <Route path="/home" element={
+          <>
+            <HeroSection />  
+            <Services />  
+          </>
+        } />
+
+        {/* Authentication Pages */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+        {/* Default Route - Redirect to Home */}
+        <Route path="*" element={
+          <>
+            <HeroSection />
+            <Services />
+          </>
+        } />
+      </Routes>
+      <AiAssistant />
+      <FeaturedDoctors />
+      <Footer />
+    </Router>
   );
-}
+};
 
 export default App;
