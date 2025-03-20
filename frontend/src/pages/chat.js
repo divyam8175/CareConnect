@@ -21,7 +21,7 @@ function Chat() {
             });
             const data = await response.json();
 
-            setMessages([...messages, userMessage, { sender: 'bot', text: data.botReply }]);
+            setMessages([...messages, userMessage, { sender: 'bot', text: data.botReply, isHtml: true }]);
         } catch (error) {
             console.error(error);
         }
@@ -39,7 +39,12 @@ function Chat() {
             <div className='chat-box' ref={chatBoxRef}>
                 {messages.map((msg, index) => (
                     <div key={index} className={`message ${msg.sender}`}>
-                        <strong>{msg.sender}:</strong> {msg.text}
+                        <strong>{msg.sender}:</strong>{' '}
+                        {msg.isHtml ? (
+                            <span dangerouslySetInnerHTML={{ __html: msg.text }} />
+                        ) : (
+                            msg.text
+                        )}
                     </div>
                 ))}
             </div>

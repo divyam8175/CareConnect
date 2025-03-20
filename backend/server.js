@@ -144,14 +144,20 @@ app.post('/api/auth/chat', async (req, res) => {
           'Content-Type': 'application/json'
       }
   });
-    const botReply = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
-    console.log("Bot Reply:", botReply);
+    let botReply = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || 
+             "Sorry, I couldn't generate a response.";
 
     if (!Chat) {
       console.error("Chat model is not defined!");
       return res.status(500).json({ error: "Chat model is undefined" });
   }
 
+  botReply = botReply
+    .replace(/\*\*(.*?)\*\*/g, '<h3>$1</h3>') // Convert **text** to <h3>text</h3>
+    .replace(/\*(.*?)\n/g, '<li>$1</li>')     // Convert *text followed by newline to <li>text</li>
+    .replace(/<li>(.*?)<\/li>/g, '<ul><li>$1</li></ul>'); // Wrap <li> elements in <ul>
+
+    console.log("botReply:", botReply);
   try {
     const chat = new Chat({ userMessage: message, botResponse: botReply });
     await chat.save();
