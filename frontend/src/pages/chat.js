@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect, useRef} from 'react';
 import '../styles/chat.css';
 
 function Chat() {
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([]);
+    const chatBoxRef = useRef(null);
 
     const sendMessage = async () => {
         if (!input.trim()) return;
@@ -26,10 +27,16 @@ function Chat() {
         }
     };
 
+    useEffect(() => {
+        if (chatBoxRef.current) {
+            chatBoxRef.current.scrollTo({ top: chatBoxRef.current.scrollHeight, behavior: 'smooth' });
+        }
+    }, [messages]);
+
     return (
         <div className='chat-container'>
-            <h1>AI Chatbot</h1>
-            <div className='chat-box'>
+            <h1 className='chat-header'>AI Chatbot</h1>
+            <div className='chat-box' ref={chatBoxRef}>
                 {messages.map((msg, index) => (
                     <div key={index} className={`message ${msg.sender}`}>
                         <strong>{msg.sender}:</strong> {msg.text}
