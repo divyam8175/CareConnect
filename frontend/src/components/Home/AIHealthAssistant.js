@@ -20,7 +20,7 @@ function AiAssistant() {
             <div>
               <button 
                 className="ai-assistant-button"
-                onClick={() => navigate("/ai-assistant")} // ✅ Navigate on click
+                onClick={() => navigate("/chat")} // ✅ Navigate on click
               >
                 AI Assistant
                 <Bot className="ai-assistant-button-icon" />

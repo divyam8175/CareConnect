@@ -1,0 +1,135 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .navbar img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 24px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 500;
+  }
+  
+  .nav-links a:hover {
+    color: #111827;
+  }
+  
+  .icon-button {
+    position: relative;
+    margin-right: 16px;
+    color: #374151;
+    cursor: pointer;
+  }
+  
+  .icon-button .notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    height: 16px;
+    width: 16px;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .main {
+    background-color: white;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .appointments-section h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #111827;
+  }
+  
+  .card {
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .appointment-actions button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .reschedule {
+    background-color: #374151;
+    color: white;
+  }
+  
+  .reschedule:hover {
+    background-color: #1f2937;
+  }
+  
+  .cancel {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
+  }
+  
+  .cancel:hover {
+    background-color: #fecaca;
+  }
+  
+  .footer {
+    background-color: #f9fafb;
+    padding: 40px 0;
+    text-align: center;
+    color: #6b7280;
+  }
+  
+  .footer a {
+    color: #6b7280;
+    text-decoration: none;
+    margin: 0 8px;
+  }
+  
+  .footer a:hover {
+    color: #1f2937;
+  }
+  

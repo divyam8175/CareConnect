@@ -12,13 +12,13 @@ const DashboardHeader = () => {
           <a href="/dashboard" className="nav-link">
             <i className="fas fa-home nav-icon"></i>Dashboard
           </a>
-          <a href="#" className="nav-link">
+          <a href="/appointment" className="nav-link">
             <i className="fas fa-calendar-alt nav-icon"></i>Appointments
           </a>
-          <a href="#" className="nav-link">
+          <a href="/medicalreport" className="nav-link">
             <i className="fas fa-file-medical nav-icon"></i>Medical Records
           </a>
-          <a href="#" className="nav-link">
+          <a href="/profile" className="nav-link">
             <i className="fas fa-user nav-icon"></i>Profile
           </a>
           <div className="notification-container">

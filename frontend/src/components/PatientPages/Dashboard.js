@@ -10,7 +10,9 @@ import DoctorCard from './DoctorCard';
 
 const Dashboard = () => {
   return (
+    
     <div className="dashboard">
+      
       <div className="dashboard-container">
         <DashboardHeader />
         <main className="dashboard-main">

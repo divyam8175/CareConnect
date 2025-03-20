@@ -9,7 +9,8 @@ const User = require("./models/User");
 // Import Doctor and Patient models
 const Doctor = require("./models/Doctor");
 const Patient = require("./models/Patient");
-
+const Chat = require("./models/chat.model");
+const axios = require('axios');
 const app = express();
 
 // Connect to DB
@@ -120,6 +121,52 @@ app.post('/api/auth/login', async (req, res) => {
 app.get("/", (req, res) => {
   res.send("Medicus API is running...");
 });
+
+// Chatbot route
+app.post('/api/auth/chat', async (req, res) => {
+  const { message } = req.body;
+  
+  try {
+    const apiKey = process.env.GEMINI_API_KEY;  // Securely accessing the API key
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+    const postData = {
+      contents: [
+          {
+              role: "user",
+              parts: [{ text: message }]
+          }
+      ]
+  };
+
+  const response = await axios.post(apiUrl, postData, {
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  });
+    const botReply = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
+    console.log("Bot Reply:", botReply);
+
+    if (!Chat) {
+      console.error("Chat model is not defined!");
+      return res.status(500).json({ error: "Chat model is undefined" });
+  }
+
+  try {
+    const chat = new Chat({ userMessage: message, botResponse: botReply });
+    await chat.save();
+} catch (err) {
+    console.error("Error saving chat:", err);
+}
+
+      res.json({ botReply });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to communicate with AI' });
+  
+    }
+  });
+
 
 const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => {
