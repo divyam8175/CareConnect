@@ -9,7 +9,7 @@ const DashboardHeader = () => {
           <h1 className="dashboard-title">Dashboard</h1>
         </div>
         <div className="header-right">
-          <a href="#" className="nav-link">
+          <a href="/dashboard" className="nav-link">
             <i className="fas fa-home nav-icon"></i>Dashboard
           </a>
           <a href="#" className="nav-link">

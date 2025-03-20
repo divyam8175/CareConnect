@@ -16,7 +16,6 @@ const Login = () => {
     console.log('Password:', password);
     console.log('Role:', role);
     try {
-      console.log(password);
       const { data } = await axios.post('http://localhost:3003/api/auth/login', { email, password, role });
       console.log('Login success:', data);
       localStorage.setItem('token', data.token);
@@ -52,13 +51,29 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <input
-          type="text"
-          placeholder="Role"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          required
-        />
+        <div className="role-selection">
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="patient"
+              checked={role === 'patient'}
+              onChange={(e) => setRole(e.target.value)}
+              required
+            />
+            Patient
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="doctor"
+              checked={role === 'doctor'}
+              onChange={(e) => setRole(e.target.value)}
+            />
+            Doctor
+          </label>
+        </div>
         <button type="submit">Login</button>
       </form>
     </div>

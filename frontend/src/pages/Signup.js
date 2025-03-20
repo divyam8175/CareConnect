@@ -97,15 +97,29 @@ const Signup = () => {
           onChange={handleChange}
           required
         />
-        <input
-          type="text"
-          placeholder="Role"
-          id="role"
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          required
-        />
+        <div className="role-selection">
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="patient"
+              checked={formData.role === "patient"}
+              onChange={handleChange}
+              required
+            />
+            Patient
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="role"
+              value="doctor"
+              checked={formData.role === "doctor"}
+              onChange={handleChange}
+            />
+            Doctor
+          </label>
+        </div>
         <button type="submit">Sign Up</button>
       </form>
     </div>

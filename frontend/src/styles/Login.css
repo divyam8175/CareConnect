@@ -42,3 +42,8 @@
   .login-form button:hover {
     background-color: #555;
   }
+  .role-selection{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }

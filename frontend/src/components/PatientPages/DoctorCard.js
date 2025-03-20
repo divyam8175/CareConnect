@@ -1,9 +1,8 @@
-// src/components/DoctorCard.js
 import React from 'react';
 
 const DoctorCard = ({ doctor }) => {
     if (!doctor) {
-      return null; // or display a fallback UI
+      return null;
     }
     
     return (
