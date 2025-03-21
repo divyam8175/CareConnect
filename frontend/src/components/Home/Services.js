@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/Services.css";
 
 // Import icons
@@ -19,17 +20,23 @@ const services = [
 ];
 
 const Services = () => {
+    const navigate = useNavigate();
+
+    const handleLoginRedirect = () => {
+        navigate("/roleselectionlogin");
+    };
+
     return (
         <div className="services-container">
             <h2>Our Services</h2>
             <p>Comprehensive healthcare solutions designed for your convenience</p>
             
-            <div className="services-grid">
+            <div className="services-grid" onClick={handleLoginRedirect}>
                 {services.map((service, index) => (
                     <div key={index} className="service-card">
                         <div className="service-header">
                             <img src={service.icon} alt={service.title} className="service-icon" />
-                            <h3>{service.title}</h3>
+                            <h3  className="service-title-button">{service.title}</h3>
                         </div>
                         <p>{service.description}</p>
                     </div>
