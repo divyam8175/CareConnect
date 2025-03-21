@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Login.css';
 
@@ -8,6 +8,15 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const queryRole = queryParams.get("role");
+
+  useEffect(() => {
+    if (queryRole) {
+      setRole(queryRole);
+    }
+  }, [queryRole]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -23,9 +32,9 @@ const Login = () => {
       
       // Redirect based on role
       if (data.role === 'patient') {
-        navigate('/dashboard');
+        navigate('/patient-dashboard');
       } else if (data.role === 'doctor') {
-        navigate('/dashboard');
+        navigate('/doctor-dashboard');
       }
     } catch (error) {
       console.error('Error during login:', error.response ? error.response.data : error.message);
@@ -51,29 +60,6 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <div className="role-selection">
-          <label>
-            <input
-              type="radio"
-              name="role"
-              value="patient"
-              checked={role === 'patient'}
-              onChange={(e) => setRole(e.target.value)}
-              required
-            />
-            Patient
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="role"
-              value="doctor"
-              checked={role === 'doctor'}
-              onChange={(e) => setRole(e.target.value)}
-            />
-            Doctor
-          </label>
-        </div>
         <button type="submit">Login</button>
       </form>
     </div>

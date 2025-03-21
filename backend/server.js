@@ -27,24 +27,28 @@ app.get('/api/doctors', async (req, res) => {
     const doctors = await Doctor.find();
     res.status(200).json(doctors);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching doctors123' });
+    res.status(500).json({ error: 'Error fetching doctors' });
   }
 });
+
 // Signup route (without password encryption)
 app.post('/api/auth/signup', async (req, res) => {
-  const { username, email, password, role } = req.body;
+  const { name, email, password, role, age, gender, phone, emergencyPhone, address, specialization, licenseNumber, licenseExpiry, affiliatedHospital } = req.body;
   console.log('Received signup data:', req.body);
   try {
     // Store password in plain text
-    const newUser = new User({ username, email, password, role });
+    const newUser = new User({ username: name, email, password, role });
     await newUser.save();
 
     // Create record in the role-specific collection
     if (role === "doctor") {
       const newDoctor = new Doctor({ 
         user: newUser._id, 
-        specialization: "General", 
+        specialization, 
         role: "doctor",
+        licenseNumber,
+        licenseExpiry,
+        affiliatedHospital,
         availability: []
       });
       await newDoctor.save();
@@ -52,6 +56,11 @@ app.post('/api/auth/signup', async (req, res) => {
       const newPatient = new Patient({ 
         user: newUser._id,
         role: "patient",
+        age,
+        gender,
+        phone,
+        emergencyPhone,
+        address,
         medicalHistory: []
       });
       await newPatient.save();
@@ -60,7 +69,7 @@ app.post('/api/auth/signup', async (req, res) => {
       return res.status(400).json({ error: 'Invalid role provided' });
     }
 
-    res.status(201).json({ message: 'Signup successful' });
+    res.status(201).json({ message: 'Signup successful', token: jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' }) });
   } catch (error) {
     res.status(500).json({ error: 'Error signing up user' });
   }

@@ -25,8 +25,8 @@ const Navbar = () => {
                 {/* Right Side: Auth Buttons */}
                 <div className="nav-right">
                 <div className="auth-buttons">
-                    <button onClick={() => navigate("/login")} className="login-link">LOGIN</button>
-                    <button onClick={() => navigate("/signup")} className="login-link">SIGNUP</button>
+                    <button onClick={() => navigate("/roleselectionlogin")} className="login-link">LOGIN</button>
+                    <button onClick={() => navigate("/roleselectionSignup")} className="login-link">SIGNUP</button>
                 </div>
                 </div>
             </div>
