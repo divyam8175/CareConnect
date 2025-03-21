@@ -36,40 +36,58 @@ app.post('/api/auth/signup', async (req, res) => {
   const { name, email, password, role, age, gender, phone, emergencyPhone, address, specialization, licenseNumber, licenseExpiry, affiliatedHospital } = req.body;
   console.log('Received signup data:', req.body);
   try {
+    // Check if user already exists
+    if (role === "doctor") {
+    const existingDoctor = await Doctor.findOne({ licenseNumber });
+    if (existingDoctor) {
+      return res.status(400).json({ error: 'Doctor with this license number already exists' });
+    }
+
     // Store password in plain text
+
     const newUser = new User({ username: name, email, password, role });
     await newUser.save();
 
     // Create record in the role-specific collection
-    if (role === "doctor") {
-      const newDoctor = new Doctor({ 
-        user: newUser._id, 
-        specialization, 
-        role: "doctor",
-        licenseNumber,
-        licenseExpiry,
-        affiliatedHospital,
-        availability: []
-      });
-      await newDoctor.save();
+    const newDoctor = new Doctor({ 
+      user: newUser._id, 
+      specialization, 
+      role: "doctor",
+      licenseNumber,
+      licenseExpiry,
+      affiliatedHospital,
+      availability: []
+    });
+    await newDoctor.save();
     } else if (role === "patient") {
+      
+      const existingPatient = await Patient.findOne({ phone });
+      if (existingPatient) {
+        return res.status(400).json({ error: 'Patient with this phone number already exists' });
+      }
+
+      // Store password in plain text
+
+      const newUser = new User({ username: name, email, password, role });
+      await newUser.save();
+      console.log(newUser);
       const newPatient = new Patient({ 
-        user: newUser._id,
-        role: "patient",
+        user: newUser._id, 
+        name,
         age,
         gender,
         phone,
+        password,
         emergencyPhone,
+        email,
         address,
-        medicalHistory: []
+        medicalHistory: [],
+        appointments:[]
       });
       await newPatient.save();
-    } else {
-      await newUser.remove();
-      return res.status(400).json({ error: 'Invalid role provided' });
     }
-
-    res.status(201).json({ message: 'Signup successful', token: jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' }) });
+    res.status(201).json({ message: 'Signup successful', });
+    
   } catch (error) {
     res.status(500).json({ error: 'Error signing up user' });
   }
