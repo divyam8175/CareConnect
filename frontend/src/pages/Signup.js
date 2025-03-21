@@ -48,7 +48,6 @@ const Signup = () => {
       alert("Passwords do not match");
       return;
     }
-
     // Log form data for debugging purposes
     console.log("Form data to be sent:", formData);
 
