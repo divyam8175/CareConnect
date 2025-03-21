@@ -13,6 +13,10 @@ const Chat = require("./models/chat.model");
 const axios = require('axios');
 const app = express();
 
+// Import OTP model and services
+const otp = require("./models/opt.model");
+const { generateOTP, sendOTP } = require("./services/opt");
+
 // Connect to DB
 connectDB();
 
@@ -31,6 +35,53 @@ app.get('/api/doctors', async (req, res) => {
   }
 });
 
+//otp routes
+app.post("/api/auth/generate-otp", async (req, res) => {
+  const email = req.body.email;
+
+  try {
+    let user = await otp.findOne({ email: email });
+
+    // If user does not exist, create a new user
+    if (!user) {
+      user = new otp({ email: email });
+    }
+
+    // If user is blocked, return an error
+    if (user.isBlocked) {
+      const currentTime = new Date();
+      if (currentTime < user.blockUntil) {
+        return res.status(403).send("Account blocked. Try after some time.");
+      } else {
+        user.isBlocked = false;
+        user.OTPAttempts = 0;
+      }
+    }
+
+    // Check for minimum 1-minute gap between OTP requests
+    const lastOTPTime = user.OTPCreatedTime;
+    const currentTime = new Date();
+
+    if (lastOTPTime && currentTime - lastOTPTime < 60000) {
+      return res
+        .status(403)
+        .send("Minimum 1-minute gap required between OTP requests");
+    }
+
+    const OTP = generateOTP();
+    user.OTP = OTP;
+    user.OTPCreatedTime = currentTime;
+
+    await user.save();
+
+    sendOTP(email, OTP);
+
+    res.status(200).send("OTP sent successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server error");
+  }
+});
 // Signup route (without password encryption)
 app.post('/api/auth/signup', async (req, res) => {
   const { name, email, password, role, age, gender, phone, emergencyPhone, address, specialization, licenseNumber, licenseExpiry, affiliatedHospital } = req.body;
@@ -65,6 +116,64 @@ app.post('/api/auth/signup', async (req, res) => {
       if (existingPatient) {
         return res.status(400).json({ error: 'Patient with this phone number already exists' });
       }
+      //check otp and save user
+      const email = req.body.email;
+  const OTP = req.body.OTP;
+
+  try {
+    let user = await otp.findOne({ email: email });
+
+    if (!user) {
+      return res.status(403).send("Please generate OTP first");
+    }
+
+    // Check if user account is blocked
+    if (user.isBlocked) {
+      const currentTime = new Date();
+      if (currentTime < user.blockUntil) {
+        return res.status(403).send("Account blocked. Try after some time.");
+      } else {
+        user.isBlocked = false;
+        user.OTPAttempts = 0;
+      }
+    }
+
+    // Check OTP
+    if (user.OTP !== OTP) {
+      user.OTPAttempts++;
+
+      // If OTP attempts >= 5, block user for 1 hour
+      if (user.OTPAttempts >= 5) {
+        user.isBlocked = true;
+        let blockUntil = new Date();
+        blockUntil.setHours(blockUntil.getHours() + 1);
+        user.blockUntil = blockUntil;
+      }
+
+      await user.save();
+
+      return res.status(403).send("Invalid OTP");
+    }
+
+    // Check if OTP is within 5 minutes
+    const OTPCreatedTime = user.OTPCreatedTime;
+    const currentTime = new Date();
+
+    if (currentTime - OTPCreatedTime > 5 * 60 * 1000) {
+      return res.status(403).send("OTP expired");
+    }
+    // Clear OTP
+    user.OTP = undefined;
+    user.OTPCreatedTime = undefined;
+    user.OTPAttempts = 0;
+
+    await user.save();
+    res.json({ token });
+    console.log("User OTP verified successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server error");
+  }
 
       // Store password in plain text
 

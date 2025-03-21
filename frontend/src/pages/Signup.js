@@ -123,55 +123,94 @@ const Signup = () => {
         />
 
         {/* Fields Specific to Patients */}
-        {formData.role === "patient" && (
-          <>
-            <input
-              type="number"
-              placeholder="Age"
-              name="age"
-              value={formData.age}
-              onChange={handleChange}
-              required
-            />
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="tel"
-              placeholder="Emergency Phone Number"
-              name="emergencyPhone"
-              value={formData.emergencyPhone}
-              onChange={handleChange}
-              required
-            />
+          {formData.role === "patient" && (
+            <>
+              <input
+                type="number"
+                placeholder="Age"
+                name="age"
+                value={formData.age}
+                onChange={handleChange}
+                required
+              />
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="tel"
+                placeholder="Emergency Phone Number"
+                name="emergencyPhone"
+                value={formData.emergencyPhone}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Address"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
+            </>
+          )}
+
+          {/* OTP Field and Generate OTP Button */}
+          <div className="otp-section">
             <input
               type="text"
-              placeholder="Address"
-              name="address"
-              value={formData.address}
+              placeholder="Enter OTP"
+              name="otp"
+              value={formData.otp || ""}
               onChange={handleChange}
               required
             />
-          </>
-        )}
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+            const response = await fetch("http://localhost:3003/api/auth/generate-otp", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email: formData.email }),
+            });
 
-        {/* Fields Specific to Doctors */}
+            if (response.ok) {
+              const result = await response.json();
+              alert("OTP sent to your email!");
+              console.log("OTP generated:", result);
+            } else {
+              const error = await response.json();
+              console.error("Failed to generate OTP:", error);
+              alert("Failed to generate OTP. Please try again.");
+            }
+                } catch (error) {
+            console.error("Error generating OTP:", error);
+            alert("An error occurred while generating OTP.");
+                }
+              }}
+            >
+              Generate OTP
+            </button>
+          </div>
+
+          {/* Fields Specific to Doctors */}
         {formData.role === "doctor" && (
           <>
             <input
